@@ -6,10 +6,9 @@ const userRoute = require('./routes/userRoute');
 const adminRoute = require('./routes/adminRoute');
 const doctorRoute = require('./routes/doctorRoute');
 const path = require('path');
-const allowedOrigins = ['http://localhost:1300'];
 app.use(express.json());
 const cors = require('cors');
-app.use(cors({ origin: allowedOrigins, credentials: true }));
+app.use(cors());
 require('./config/dbConfig');
 app.get('/', (req, res) => {
     res.send("hello")
