@@ -10,18 +10,13 @@ app.use(express.json());
 const cors = require('cors');
 app.use(cors());
 require('./config/dbConfig');
-
+app.get('/', (req, res) => {
+    res.send("hello")
+})
 app.use('/api/user', userRoute)
 app.use('/api/admin', adminRoute)
 app.use('/api/doctor', doctorRoute)
 
-
-if (process.env.NODE_ENV === 'production') {
-    app.use("/".express.static('client/build'));
-    app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client/build/index.html'));
-    });
-}
 
 app.listen(port, () => {
     console.log(`Server listening port http://localhost:${port}`)
