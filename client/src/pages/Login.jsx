@@ -1,18 +1,19 @@
+import React from 'react'
 import { Button, Form, Input } from 'antd'
 import axios from 'axios';
-import React from 'react'
 import toast from 'react-hot-toast';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { hideLoading, showLoading } from '../redux/alertsSlice';
 
 function Login() {
+  const api = process.env.REACT_APP_PROXY_URL;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const onFinish = async (values) => {
     try {
       dispatch(showLoading())
-      const response = await axios.post('https://sheyhealthy-207.onrender.com/api/user/login', values)
+      const response = await axios.post(`${api}/api/user/login`, values)
       dispatch(hideLoading())
       if (response.data.success) {
         toast.success(response.data.message)
