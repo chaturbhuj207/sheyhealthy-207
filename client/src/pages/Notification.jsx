@@ -9,6 +9,8 @@ import axios from 'axios'
 import { setUser } from '../redux/userSlice'
 
 function Notification() {
+    const api = process.env.REACT_APP_PROXY_URL;
+
     const { user } = useSelector((state) => state.user)
     const navigate = useNavigate();
     const dispatch = useDispatch()
@@ -16,7 +18,7 @@ function Notification() {
     const markAllNotification = async () => {
         try {
             dispatch(showLoading());
-            const response = await axios.post('api/user/mark-all-notifications-as-seen', { userId: user._id }, {
+            const response = await axios.post(`${api}/api/user/mark-all-notifications-as-seen`, { userId: user._id }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
@@ -37,7 +39,7 @@ function Notification() {
     const deleteAllNotification = async () => {
         try {
             dispatch(showLoading());
-            const response = await axios.post('api/user/delete-all-notifications', { userId: user._id }, {
+            const response = await axios.post(`${api}/api/user/delete-all-notifications`, { userId: user._id }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }

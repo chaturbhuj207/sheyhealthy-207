@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom'
 import DoctorForm from '../components/DoctorForm'
 
 function ApplyDoctor() {
+    const api = process.env.REACT_APP_PROXY_URL;
+
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.user);
     const navigate = useNavigate();
@@ -16,7 +18,7 @@ function ApplyDoctor() {
     const onFinish = async (values) => {
         try {
             dispatch(showLoading());
-            const response = await axios.post('api/user/apply-doctor-account', {
+            const response = await axios.post(`${api}/api/user/apply-doctor-account`, {
                 ...values,
                 userId: user._id,
                 timings: [

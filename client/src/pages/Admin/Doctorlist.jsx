@@ -8,12 +8,13 @@ import toast from 'react-hot-toast';
 import moment from 'moment';
 
 function Doctorlist() {
+    const api = process.env.REACT_APP_PROXY_URL;
     const [doctors, setDoctors] = useState([])
     const dispatch = useDispatch();
     const getDoctorData = async () => {
         try {
             dispatch(showLoading())
-            const response = await axios.post('/api/admin/get-all-doctors', {}, {
+            const response = await axios.post(`${api}/api/admin/get-all-doctors`, {}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
@@ -29,7 +30,7 @@ function Doctorlist() {
     const changeDoctorStatus = async (record, status) => {
         try {
             dispatch(showLoading())
-            const response = await axios.post('/api/admin/change-doctor-status', { doctorId: record._id, userId: record.userId, status: status }, {
+            const response = await axios.post(`${api}/api/admin/change-doctor-status`, { doctorId: record._id, userId: record.userId, status: status }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }

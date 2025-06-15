@@ -8,12 +8,14 @@ import toast from 'react-hot-toast';
 import dayjs from 'dayjs';
 
 function Appointments() {
+    const api = process.env.REACT_APP_PROXY_URL;
+
     const [appointments, setAppointments] = useState([])
     const dispatch = useDispatch();
     const getAppointmentData = async () => {
         try {
             dispatch(showLoading())
-            const response = await axios.post('/api/user/get-appointment-by-user-id ', {}, {
+            const response = await axios.post(`${api}/api/user/get-appointment-by-user-id`, {}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }

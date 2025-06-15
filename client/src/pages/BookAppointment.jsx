@@ -9,6 +9,8 @@ import { DatePicker, TimePicker } from 'antd';
 import toast from 'react-hot-toast';
 
 function BookAppointment() {
+    const api = process.env.REACT_APP_PROXY_URL;
+
     const [isAvailable, setIsAvailable] = useState(false)
     const [doctor, setDoctor] = useState(null)
     const { user } = useSelector((state) => state.user);
@@ -39,7 +41,7 @@ function BookAppointment() {
     const checkAvailability = async () => {
         try {
             dispatch(showLoading());
-            const response = await axios.post("/api/user/check-booking-availability", {
+            const response = await axios.post(`${api}/api/user/check-booking-availability`, {
                 doctorId: params.doctorId,
                 date: date,
                 time: time,
@@ -65,7 +67,7 @@ function BookAppointment() {
         try {
             setIsAvailable(false);
             dispatch(showLoading());
-            const response = await axios.post("/api/user/book-appointment", {
+            const response = await axios.post(`${api}/api/user/book-appointment`, {
                 doctorId: params.doctorId,
                 userId: user._id,
                 date: date,

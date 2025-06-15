@@ -7,13 +7,15 @@ import { useDispatch } from 'react-redux'
 import { hideLoading, showLoading } from '../redux/alertsSlice'
 
 function Home() {
+  const api = process.env.REACT_APP_PROXY_URL;
+
   const [doctor, setDoctor] = useState([])
   const dispatch = useDispatch()
 
   const getdata = async () => {
     try {
       dispatch(showLoading())
-      const response = await axios.post("/api/user/get-all-approved-doctors", {}, {
+      const response = await axios.post(`${api}/api/user/get-all-approved-doctors`, {}, {
         headers: {
           Authorization: "Bearer " + localStorage.getItem("token")
         }

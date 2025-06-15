@@ -9,12 +9,14 @@ import { hideLoading, showLoading } from '../redux/alertsSlice';
 
 
 function Register() {
+    const api = process.env.REACT_APP_PROXY_URL;
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const onFinish = async (values) => {
         try {
             dispatch(showLoading());
-            const response = await axios.post('/api/user/register', values)
+            const response = await axios.post(`${api}/api/user/register`, values)
             dispatch(hideLoading());
             if (response.data.success) {
                 toast.success(response.data.message)

@@ -7,12 +7,13 @@ import { Table } from 'antd';
 import moment from 'moment';
 
 function Userlist() {
+    const api = process.env.REACT_APP_PROXY_URL;
     const [users, setUsers] = useState([])
     const dispatch = useDispatch();
     const getUsersData = async () => {
         try {
             dispatch(showLoading())
-            const response = await axios.post('/api/admin/get-all-users', {}, {
+            const response = await axios.post(`${api}/api/admin/get-all-users`, {}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }

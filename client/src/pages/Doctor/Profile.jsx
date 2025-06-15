@@ -9,6 +9,8 @@ import toast from 'react-hot-toast';
 import dayjs from 'dayjs';
 
 function Profile() {
+    const api = process.env.REACT_APP_PROXY_URL;
+
     const dispatch = useDispatch();
     const { user } = useSelector(state => state.user);
     const navigate = useNavigate();
@@ -18,7 +20,7 @@ function Profile() {
     const onFinish = async (values) => {
         try {
             dispatch(showLoading());
-            const response = await axios.post('/api/doctor/update-doctor-profile', {
+            const response = await axios.post(`${api}/api/doctor/update-doctor-profile`, {
                 ...values,
                 userId: user._id,
                 timings: [
@@ -46,7 +48,7 @@ function Profile() {
     const getDoctorData = async () => {
         try {
             dispatch(showLoading());
-            const response = await axios.post("/api/doctor/get-doctor-info-by-userId", { userId: params.userId }, {
+            const response = await axios.post(`${api}/api/doctor/get-doctor-info-by-userId`, { userId: params.userId }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }

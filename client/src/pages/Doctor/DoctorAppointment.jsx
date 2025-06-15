@@ -8,12 +8,14 @@ import toast from 'react-hot-toast';
 import dayjs from 'dayjs';
 
 function DoctorAppointments() {
+    const api = process.env.REACT_APP_PROXY_URL;
+
     const [doctorAppointments, setDoctorAppointments] = useState([])
     const dispatch = useDispatch();
     const getAppointmentData = async () => {
         try {
             dispatch(showLoading())
-            const response = await axios.post('/api/doctor/get-appointment-by-doctor-id ', {}, {
+            const response = await axios.post(`${api}/api/doctor/get-appointment-by-doctor-id`, {}, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
@@ -30,7 +32,7 @@ function DoctorAppointments() {
     const changeAppointmentStatus = async (record, status) => {
         try {
             dispatch(showLoading())
-            const response = await axios.post('/api/doctor/change-appointment-status', { appointmentId: record._id, status: status }, {
+            const response = await axios.post(`${api}/api/doctor/change-appointment-status`, { appointmentId: record._id, status: status }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
