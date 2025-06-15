@@ -24,7 +24,7 @@ function BookAppointment() {
     const getDoctorData = async () => {
         try {
             dispatch(showLoading());
-            const response = await axios.post("/api/doctor/get-doctor-info-by-id", { doctorId: params.doctorId }, {
+            const response = await axios.post(`${api}/api/doctor/get-doctor-info-by-id`, { doctorId: params.doctorId }, {
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem("token")}`
                 }
